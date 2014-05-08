@@ -3,28 +3,33 @@
 The controller class
 ================================*/
 
-class theGame(){
+class TheGame(){
 
-	public $suites = array('Spades', 'Hearts', 'Diamonds', 'Clubs');
-	public $ranks = array('A', '2', '3', '4', '5', '6', '7', '8', '9', '10', 'Jack', 'Queen', 'King');
+	public $selectedCards = array();
+	public $errorMsgs = array();
+	public $assets;
 
 	private function __constructor(){
-		$assets = new AssetsManager();
-		$assets->setupDeck();
+		if( !isset( $_SESSION ) ) {
+			session_start();
+		}
+		$this->assets = new AssetsManager();
+		$this->assets->setupDeck();
 	}
 
 	
-	private function endOfTurn();
+	private function endOfTurn($card1, $card2);
 		
 		//Turn Ended...
-		$assets->matcher($card1, $card2);
-		$assets->turnsCounter();
+		$this->assets->matcher($card1, $card2);
+		$this->assets->turnsCounter();
 		
-		if (!$assets->gameOver()){
-			$assets->playAgain();
+		if (!$this->assets->gameOver()){
+			return true;
 		}else{
-			$assets->scoreCalculator();
-			$assets->timeDuration();
+			$this->assets->scoreCalculator();
+			$this->assets->timeDuration();
+			return false;
 		}
 	}
 		 
@@ -37,21 +42,23 @@ class theGame(){
 		$matrix2 = explode(',', $card2);
 
 		if ($matrix1[1] == $matrix2[1]){
-			$assets->matched[] = $card1 .'|'. $card2;
-			$assets->matches++;
-			$assets->disabledCards[] = $card1;
-			$assets->disabledCards[] = $card2;
+			$_SESSION['matched'][] = $card1 .'|'. $card2;
+			$_SESSION['matches']++;
+			$_SESSION['disabledCards'][] = $card1;
+			$_SESSION['disabledCards'][] = $card2;
 			return true;
 		}else{
 			return false;		
 		}
 	}
 
-	public cardVisualizer($card){
+	public function cardVisualizer($card){
+		$suites = array('Spades', 'Hearts', 'Diamonds', 'Clubs');
+		$ranks = array('A', '2', '3', '4', '5', '6', '7', '8', '9', '10', 'Jack', 'Queen', 'King');
 		$matrix = explode(',', $card);
 
-		$suite = $this->suites[$matrix[0]];
-		$rank = $this->rank[$matrix[1]];
+		$suite = $suites[$matrix[0]];
+		$rank = $rank[$matrix[1]];
 
 		return array($suite, $rank);
 	}
@@ -64,7 +71,14 @@ class theGame(){
 		}
 	}
 
-	
+	public function formCardsSelected($post){
+		
+		for($i = 1; $i <= 24; $i++) {
+			if($post['card'.$i]){
+				$selectedCards[] = $post['card'.$i];
+			}
+		}
+	}
 
 }
 

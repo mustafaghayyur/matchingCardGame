@@ -7,7 +7,7 @@ and make it function. Handles all the assets...
 
 class AssetsManager(){
 
-	private cardsDeck = array();
+	public cardsDeck = array();
 	public playingCards = array();
 	public matches = 0;
 	public matched = array();
@@ -42,13 +42,16 @@ class AssetsManager(){
 				$this->cardsDeck[$c][$r] = 0;
 			}
 		}
+
+		$_SESSION['cardsDeck'] = $this->cardsDeck;
 	}
 		 
 	public function cardPicker(){
 		$c = rand(1, 4);
 		$r = rand(1, 13);
 
-		if($this->cardsDeck[$c][$r] == 0){
+		if($_SESSION['cardsDeck'][$c][$r] == 0){
+			$_SESSION['cardsDeck'][$c][$r] = 1;
 			return $c.','.$r;
 		}else{
 			return $this->cardPicker();
@@ -60,9 +63,9 @@ class AssetsManager(){
 		$matrix = explode(',', $card);
 		
 		for($i=1; $i <= 4; $i++){
-			if($this->cardsDeck[$i][$matrix[1]] == 0){
+			if($_SESSION['cardsDeck'][$i][$matrix[1]] == 0){
 				$match = $i;
-				$this->cardsDeck[$i][$matrix[1]] = 1;
+				$_SESSION['cardsDeck'][$i][$matrix[1]] = 1;
 				break;
 			}
 		}
@@ -75,11 +78,11 @@ class AssetsManager(){
 	}
 
 	public function turnsCounter (){
-		return $this->turns++; 
+		return $_SESSION['turns']++; 
 	}
 
 	public function timeDuration(){
-		return $this->totalTime = $this->timeStart - $this->timeEnd;
+		return $_SESSION['totalTime'] = $_SESSION['timeStart'] - $_SESSION['timeEnd'];
 	}
 
 	
