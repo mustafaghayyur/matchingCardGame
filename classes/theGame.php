@@ -1,84 +1,59 @@
 <?php
 /*=======================
-The main class for this game
-Takes care of core functions to initialize the game, and make it function.
+The controller class
 ================================*/
 
 class theGame(){
 
-	private cardsDeck = array();
-	public playingCards = array();
-	public matches = 0;
-	public matched = array();
-	public disabledCards = array(); // once the card is matched, it is added here to it cannot be picked again.
-
-	private timeStart = ''; //timestamp
-	private timeEnd = ''; //timestamp
-	public turns = 0; // number of turns
-	public totalTime = ''; // total duration of the game in seconds
-	public score = 0; // total score calculaed at the end of the game
+	public $suites = array('Spades', 'Hearts', 'Diamonds', 'Clubs');
+	public $ranks = array('A', '2', '3', '4', '5', '6', '7', '8', '9', '10', 'Jack', 'Queen', 'King');
 
 	private function __constructor(){
-		//code... if any....
-		$this->setupDeck();
+		$assets = new AssetsManager();
+		$assets->setupDeck();
 	}
 
-
-	/* The deck will be made of a matrix array consisting 
-	of 4 columns and 13 rows The 4 columns represent 
-	(1)Spades, (2)Hearts, (3)Diamonds, and (4)Clubs
-	The rows will represent (1)Ace, (2)2, (3)3, ... (10)10, (11)Jack, (12)Queens, (13)King
-	respectively. The values for each card will be defaulted 
-	to 0, meaning the card has not been picked from the deck 
-	for the matching game.
 	
-	Once the card is picked by the game, it's value in this array will become 1*/
-	
-	private function setupDeck();
-
-		for ($c = 1; $c <= 4; $c++){
-			for($r = 1; $r <= 13; $r++){
-				$this->cardsDeck[$c][$r] = 0;
-			}
+	private function endOfTurn();
+		
+		//Turn Ended...
+		$assets->matcher($card1, $card2);
+		$assets->turnsCounter();
+		
+		if (!$assets->gameOver()){
+			$assets->playAgain();
+		}else{
+			$assets->scoreCalculator();
+			$assets->timeDuration();
 		}
 	}
 		 
-	public function cardPicker(){
-		$c = rand(1, 4);
-		$r = rand(1, 13);
+	
+	/*
+	runs after every turn to see if there is a new match,
+	if so, the interal records are updated and true is returned*/
+	public function matcher($card1, $card2){
+		$matrix1 = explode(',', $card1);
+		$matrix2 = explode(',', $card2);
 
-		if($this->cardsDeck[$c][$r] == 0){
-			return $c.','.$r;
+		if ($matrix1[1] == $matrix2[1]){
+			$assets->matched[] = $card1 .'|'. $card2;
+			$assets->matches++;
+			$assets->disabledCards[] = $card1;
+			$assets->disabledCards[] = $card2;
+			return true;
 		}else{
-			return $this->cardPicker();
+			return false;		
 		}
-		
 	}
 
-	public function matchingCardPicker($card){
+	public cardVisualizer($card){
 		$matrix = explode(',', $card);
-		
-		for($i=1; $i <= 4; $i++){
-			if($this->cardsDeck[$i][$matrix[1]] == 0){
-				$match = $i;
-				$this->cardsDeck[$i][$matrix[1]] = 1;
-				break;
-			}
-		}
-		
-		return $match.','.$matrix[1];
-	}
 
-	public function playingCardsRandomizer($cardsArray){
-		return shuffle($cardsArray);
-	}
+		$suite = $this->suites[$matrix[0]];
+		$rank = $this->rank[$matrix[1]];
 
-	public function turnsCounter (){
-		return $this->turns++; 
-	}
-
-	public function timeDuration(){
-		return $this->totalTime = $this->timeStart - $this->timeEnd;
+		return array($suite, $rank);
 	}
 
 	public function gameOver(){
@@ -88,25 +63,6 @@ class theGame(){
 			return false;
 		}
 	}
-
-	/*
-	runs after every turn to see if there is a new match,
-	if so, the interal records are updated and true is returned*/
-	public function matcher($card1, $card2){
-		$matrix1 = explode(',', $card1);
-		$matrix2 = explode(',', $card2);
-
-		if ($matrix1[1] == $matrix2[1]){
-			$this->matched[] = $card1 .'|'. $card2;
-			$this->matches++;
-			$this->disabledCards[] = $card1;
-			$this->disabledCards[] = $card2;
-			return true;
-		}else{
-			return false;		
-		}
-	}
-
 
 }
 
