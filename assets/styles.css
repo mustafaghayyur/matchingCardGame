@@ -1,0 +1,60 @@
+body { 
+    font: 62.5%/1.5 'Montserrat', Tahoma, Verdana, sans-serif; 
+    background: #c5deea; /* Old browsers */
+    background: -moz-linear-gradient(top,  #c5deea 0%, #8abbd7 31%, #066dab 100%); /* FF3.6+ */
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#c5deea), color-stop(31%,#8abbd7), color-stop(100%,#066dab)); /* Chrome,Safari4+ */
+    background: -webkit-linear-gradient(top,  #c5deea 0%,#8abbd7 31%,#066dab 100%); /* Chrome10+,Safari5.1+ */
+    background: -o-linear-gradient(top,  #c5deea 0%,#8abbd7 31%,#066dab 100%); /* Opera 11.10+ */
+    background: -ms-linear-gradient(top,  #c5deea 0%,#8abbd7 31%,#066dab 100%); /* IE10+ */
+    background: linear-gradient(to bottom,  #c5deea 0%,#8abbd7 31%,#066dab 100%); /* W3C */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#c5deea', endColorstr='#066dab',GradientType=0 ); /* IE6-9 */
+    color: #000000;     
+    text-align:center; 
+} 
+
+#shell {  
+    width:980px;  
+    text-align:left;   
+    margin-left:auto;  
+    margin-right:auto;  
+    background-color: #FFFFFF; 
+}
+
+h1{ 
+    font-size: 2.2em; 
+} 
+
+h2 { 
+    font-size: 2.0em;     
+} 
+
+h3 { 
+    font-size: 1.8em; 
+} 
+
+h4 { 
+    font-size: 1.6em;     
+} 
+
+h5 { 
+    font-size: 1.4em;     
+} 
+
+p, div, span { 
+    font-size: 1.2em;     
+}
+
+/* Tables  
+-----------------------------------------------------------------------------*/ 
+
+table 
+  {  
+  border-spacing: 0; 
+  border-collapse: collapse; 
+} 
+
+td  
+  { 
+  text-align: left; 
+  font-weight: normal; 
+}
