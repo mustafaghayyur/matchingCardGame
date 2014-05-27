@@ -164,7 +164,7 @@
 	  <tr>
 	    <td colspan="6">
 
-	      <input value="Try Again" name="TryAgain" type="submit">
+	      <input value="TryAgain" name="TryAgain" type="submit">
 	      
 	    </td>
 	  </tr>

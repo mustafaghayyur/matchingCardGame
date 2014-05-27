@@ -35,6 +35,8 @@ class TheGame{
 		//Turn Ended...
 		$this->assets->matcher($card1, $card2);
 		$this->assets->turnsCounter();
+
+
 		
 		if (!$this->assets->gameOver()){
 			return true;
@@ -52,7 +54,7 @@ class TheGame{
 		$cardsSelected = array();
 
 		for($i = 0; $i < 24; $i++) {
-			if($post['card'.$i] !== ''){
+			if(isset($post['card'.$i])){
 				$cardsSelected[] = array($post['card'.$i], $i);
 			}
 		}
@@ -79,7 +81,7 @@ class TheGame{
 
 	public function showErrors(){
 		$this->views->showErrors($this->errorMsgs);
-		$this->views->showGameBoard('try');
+		//$this->views->showGameBoard('try');
 	}
 
 }

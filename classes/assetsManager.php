@@ -94,7 +94,14 @@ class AssetsManager{
 		$matrix1 = explode(',', $card1);
 		$matrix2 = explode(',', $card2);
 
+		
+
 		if ($matrix1[1] == $matrix2[1]){
+
+			$fp = fopen(SITE_PATH.'/classes/logs.txt', 'a');
+			fwrite($fp, 'asset: '. $card1 .' | '. $card2."\n");
+			fclose($fp);
+
 			$_SESSION['matched'][] = $card1 .'|'. $card2;
 			$_SESSION['matches']++;
 			$_SESSION['disabledCards'][] = $card1;
