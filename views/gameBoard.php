@@ -7,7 +7,7 @@
 </div>
 
 <div id="gameBoard">
-  <form name="gameBoard" action="" method="POST">	
+  <form name="gameBoard" action="<?php echo SITE_URL.'/index.php'; ?>" method="POST">	
 	<table colspan="6" cellpadding="0" cellspacing="0">
 	  <tr>
 	    <td><input name="card0" id="card0" type="checkbox" value="<?php __($card[0][0]);?>" <?php __($card[0][1]);?>></td>

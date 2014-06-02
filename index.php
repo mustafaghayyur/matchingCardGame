@@ -7,11 +7,29 @@ require_once('classes/assetsManager.php');
 require_once('classes/theGame.php');
 require_once('classes/views.php');
 
-$newGame = isset($_GET['newGame']) ? 1 : 0;
+$newGame = (int)$_POST['newGame'];
 $theGame = new TheGame($newGame);
 $view = new Views();
 $view->showHeader();
 
+foreach($theGame->response as $response){
+	$resp .= $response .'<br/>';
+}
+
+if($newGame == 1){
+	header('Location: '.SITE_URL .'/index.php'.'?response='.urlencode($resp));
+	exit;
+}
+
+if(count($theGame->response) > 0){
+	foreach($theGame->response as $response){
+		$view->showResponse($response);
+	}
+}
+
+if(isset($_GET['response'])){
+	$view->showResponse(urldecode($_GET['response']));
+}
 
 if($_POST['Try']){
 
@@ -31,10 +49,9 @@ if($_POST['Try']){
 		$fp = fopen(SITE_PATH.'/classes/logs.txt', 'a');
 		fwrite($fp, 'index: '. $cardsSelected[0][0] .' | '. $cardsSelected[1][0] ."\n");
 		fclose($fp);
-/*		if($continue){
+		if($continue){
 			$theGame->showGameBoard('tryAgain', $cardsSelected);
-		}else{
-			
+		}/*else{			
 			$theGame->showScore();
 		}
 */
@@ -44,11 +61,13 @@ if($_POST['Try']){
 	}
 
 }else{
+
 	$theGame->showGameBoard('try');
 }
+
+$view->showFooter();
 
 echo '<pre>';
 var_dump($_SESSION);
 echo '</pre>';
-$view->showFooter();
 ?>

@@ -63,6 +63,10 @@ class Views{
 		include(SITE_PATH . VIEWS_URI . '/footer.php');
 	}
 
+	public function showResponse($response){
+		include(SITE_PATH . VIEWS_URI . '/response.php');
+	}
+
 }
 
 

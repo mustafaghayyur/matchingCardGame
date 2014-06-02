@@ -1,6 +1,9 @@
 
 	  <div id="footer"><hr/>
-	  <a href="http://localhost/matchingCardGame/index.php?newGame=1">New Game?</a></div>
+	    <form action="<?php echo SITE_URL.'/index.php';?>" method="post" name="startNew">
+	      <input type="submit" name="submit" value="New Game">
+	      <input type="hidden" name="newGame" value="1">
+	  </div>
     </div>
   </body>
 </html>

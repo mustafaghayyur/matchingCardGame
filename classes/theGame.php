@@ -6,26 +6,66 @@ The controller class
 class TheGame{
 
 	public $errorMsgs = array();
+	public $response = array();
 	public $assets;
 	public $views;
 
-	function __construct($newGame){
+	function __construct($newGame = 0){
 		$this->assets = new AssetsManager();
 		$this->views = new Views();
 
-		if($newGame=1 ) {
+		$fp = fopen(SITE_PATH.'/classes/logs.txt', 'w+');
+		if($newGame == 1 ) {
+			session_start();
 			session_regenerate_id(TRUE);
-			unset($_SESSION);
-    		session_unset();
+			unset($_SESSION['cardsDeck']); //-- do not use uset on entire $_SESSION variable ... only a specici key
+			unset($_SESSION['playingCards']);
+			unset($_SESSION['turns']);
+			unset($_SESSION['totalTime']);
+			unset($_SESSION['timeStart']);
+			unset($_SESSION['timeEnd']);
+			unset($_SESSION['matched']);
+			unset($_SESSION['matches']);
+			unset($_SESSION['disabledCards']);
+			unset($_SESSION['score']);
 
     		//start fresh...
-			session_start();
+			//session_start();
 			$this->assets->setupDeck();
 			$this->assets->createPlayingCardsArray();
+			fwrite($fp, 'Craeted a new session 1');
+			$this->response[] = 'New game started.';
+
 		}else{
 			session_start();
+			if(!isset($_SESSION['playingCards'])){
+				session_start();
+				session_regenerate_id(TRUE);
+				unset($_SESSION['cardsDeck']); //-- do not use uset on entire $_SESSION variable ... only a specici key
+				unset($_SESSION['playingCards']);
+				unset($_SESSION['turns']);
+				unset($_SESSION['totalTime']);
+				unset($_SESSION['timeStart']);
+				unset($_SESSION['timeEnd']);
+				unset($_SESSION['matched']);
+				unset($_SESSION['matches']);
+				unset($_SESSION['disabledCards']);
+				unset($_SESSION['score']);
+
+
+	    		//start fresh...
+				//session_start();
+				$this->assets->setupDeck();
+				$this->assets->createPlayingCardsArray();
+
+				fwrite($fp, 'Craeted a new session 2');
+				$this->response[] = 'New game started.';
+			}else{
+				fwrite($fp, 'We\'re good with the old session and playing cards!');
+			}
 		}
 		
+		fclose($fp);
 
 	}
 
@@ -70,7 +110,6 @@ class TheGame{
 	}
 
 	public function showScore(){
-		$this->assets->
 		$score =  $_SESSION['score'];
 		$turns =  $_SESSION['turns'];
 		$matches =  $_SESSION['matches'];
