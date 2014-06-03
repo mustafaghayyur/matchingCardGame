@@ -62,14 +62,14 @@ class AssetsManager{
 		
 	}
 
-	public function matchingCardPicker($card){
+	public function matchingCardPicker($card, $num){
 		$matrix = explode(',', $card);
 		
 		for($i=1; $i <= 4; $i++){
 			if($_SESSION['cardsDeck'][$i][$matrix[1]] == 0){
 				$match = $i;
 				$_SESSION['cardsDeck'][$i][$matrix[1]] = 1;
-				break;
+				return $i.','.$matrix[1];
 			}
 		}
 		
@@ -85,7 +85,7 @@ class AssetsManager{
 	}
 
 	public function timeDuration(){
-		return $_SESSION['totalTime'] = $_SESSION['timeStart'] - $_SESSION['timeEnd'];
+		return $_SESSION['totalTime'] = ($_SESSION['timeEnd'] - $_SESSION['timeStart']) / 60;
 	}
 
 	//runs after every turn to see if there is a new match,
@@ -112,27 +112,16 @@ class AssetsManager{
 		}
 	}
 
-	public function cardsAvailable(){
-		
-		$cardsArray = array();
-		for($i=0;$i<24;$i++){
-			$cardsArray[$i]=array($_SESSION['playingCards'][$i], '');
-		}
-
-		foreach($_SESSION['disabledCards'] as $card){
-			$key = array_search($card, $_SESSION['playingCards']);
-			$cardsArray[$key] = array($_SESSION['playingCards'][$i], 'disabled');
-		}
-
-		return $cardsArray;
-	}
-
 	public function createPlayingCardsArray(){
 		$_SESSION['playingCards'] = array();
 
-		while (count($_SESSION['playingCards']) < 24){
-			$_SESSION['playingCards'][] = $this->cardPicker();
+		for($i = 0; $i < 12; $i++){
+			$_SESSION['playingCards'][$i] = $this->cardPicker();
+			$_SESSION['playingCards'][$i + 12] = $this->matchingCardPicker($_SESSION['playingCards'][$i], $i);
 		}
+
+		shuffle($_SESSION['playingCards']);
+
 	}
 
 	//Explanation behind logic for score is documented in my scketches...

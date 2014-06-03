@@ -51,10 +51,10 @@ if($_POST['Try']){
 		fclose($fp);
 		if($continue){
 			$theGame->showGameBoard('tryAgain', $cardsSelected);
-		}/*else{			
+		}else{			
 			$theGame->showScore();
 		}
-*/
+
 	//Show errors...
 	}else{
 		$theGame->showErrors();
@@ -66,8 +66,8 @@ if($_POST['Try']){
 }
 
 $view->showFooter();
-
+/*
 echo '<pre>';
 var_dump($_SESSION);
-echo '</pre>';
+echo '</pre>';*/
 ?>

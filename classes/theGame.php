@@ -31,6 +31,7 @@ class TheGame{
 
     		//start fresh...
 			//session_start();
+			$_SESSION['timeStart'] = time();
 			$this->assets->setupDeck();
 			$this->assets->createPlayingCardsArray();
 			fwrite($fp, 'Craeted a new session 1');
@@ -81,6 +82,7 @@ class TheGame{
 		if (!$this->assets->gameOver()){
 			return true;
 		}else{
+			$_SESSION['timeEnd'] = time();
 			$this->assets->timeDuration();
 			$this->assets->scoreCalculator();
 			return false;
@@ -89,7 +91,13 @@ class TheGame{
 		 
 
 	
-
+	/* the $cardsSelected array is a matrix with the first index being from 0-1, 
+	  0 - first card
+	  1 - second card
+	the second index being 
+	  0 - for the actual card value, 
+	  1 - for the $i value (which essentially tells us the position of the card in the playingCards array).
+	*/
 	public function formCardsSelected($post){
 		$cardsSelected = array();
 
@@ -102,11 +110,51 @@ class TheGame{
 		return $cardsSelected;
 	}
 
-	public function showGameBoard($try, $cardsSelected=array()){
-		//setup Arrays & Variables for the view..
-		$card = $this->assets->cardsAvailable(); 
+	/*
+	Complicated function, but essentially it is determining the position of 
+	the two picked cards from the playingCards array, and storing the position 
+	value (from 0-23) in the $keys array.
+	*/ 
+	public function cardsPicked($cardsSelected){
+		
+		$keys = array();
+		for($i=0;$i<24;$i++){
+			if ($cardsSelected[0][0] == $_SESSION['playingCards'][$i]){
+				$keys[] = $i;
+			}
+			if ($cardsSelected[1][0] == $_SESSION['playingCards'][$i]){
+				$keys[] = $i;
+			}
+		}
+		return $keys;
+	}
 
-		$this->views->showGameBoard($try, $card, $cardsSelected);
+	public function cardsAvailable(){
+
+		$cardsArray = array();
+		for($i=0;$i<24;$i++){
+			$cardsArray[$i]=array($_SESSION['playingCards'][$i], '');
+		}
+
+		foreach($_SESSION['disabledCards'] as $card){
+			$key = array_search($card, $_SESSION['playingCards']);
+			$cardsArray[$key] = array($_SESSION['playingCards'][$i], 'disabled');
+		}
+
+		return $cardsArray;
+	}
+
+	public function showGameBoard($try, $cardsSelected=array()){
+		//in this function you need determin the PSOITION of the picked cards 
+		//in the playingCards array, for the view to work correctly
+		$keys = $this->cardsPicked($cardsSelected); 
+
+		$card = $this->cardsAvailable(); 
+
+		$turns = isset($_SESSION['turns']) ? $_SESSION['turns'] : 0;
+		$matches = isset($_SESSION['matches']) ? $_SESSION['matches'] : 0;
+
+		$this->views->showGameBoard($try, $turns, $matches, $keys, $card, $cardsSelected);
 	}
 
 	public function showScore(){
@@ -120,7 +168,7 @@ class TheGame{
 
 	public function showErrors(){
 		$this->views->showErrors($this->errorMsgs);
-		//$this->views->showGameBoard('try');
+		$this->showGameBoard('try');
 	}
 
 }

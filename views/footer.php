@@ -1,9 +1,7 @@
-
-	  <div id="footer"><hr/>
-	    <form action="<?php echo SITE_URL.'/index.php';?>" method="post" name="startNew">
-	      <input type="submit" name="submit" value="New Game">
-	      <input type="hidden" name="newGame" value="1">
 	  </div>
+    </div>
+    <div id="footer">
+  		<h4 class="credits">Developed by Malaika Ghayyur: www.web-dotz.com</h4>
     </div>
   </body>
 </html>
