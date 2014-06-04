@@ -7,6 +7,8 @@ class Views{
 
 	public $errorMsgs = array();
 	public $assets;
+	public $suites = array('Spades', 'Hearts', 'Diamonds', 'Clubs');
+	public $ranks = array('A', '2', '3', '4', '5', '6', '7', '8', '9', '10', 'J', 'Q', 'K');
 
 	function __construct($newGame){
 
@@ -17,18 +19,18 @@ class Views{
 	
 
 	public function cardVisualizer($card){
-		$suites = array('Spades', 'Hearts', 'Diamonds', 'Clubs');
-		$ranks = array('A', '2', '3', '4', '5', '6', '7', '8', '9', '10', 'J', 'Q', 'K');
 		$matrix = explode(',', $card);
 
-		$suite = $suites[((int)$matrix[0]-1)];
-		$rank = $ranks[((int)$matrix[1]-1)];
+		$suite = $this->suites[((int)$matrix[0]-1)];
+		$rank = $this->ranks[((int)$matrix[1]-1)];
 
 		return array($suite, $rank);
 	}
 
 
 	public function showGameBoard($try, $turns, $matches, $keys = array(), $card = array(), $cardsSelected = array()){
+		$suites = $this->suites;
+		$ranks = $this->ranks;
 		if($try == 'try'){
 			include(SITE_PATH . VIEWS_URI . '/gameBoard.php');
 		}elseif($try == 'tryAgain'){

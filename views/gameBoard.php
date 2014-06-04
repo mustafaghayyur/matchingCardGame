@@ -6,27 +6,19 @@
 
 <div id="gameBoard">
   <form name="gameBoard" action="<?php echo SITE_URL.'/index.php'; ?>" method="POST">	
-	<table colspan="6" cellpadding="0" cellspacing="0">
 	<?php
 		for ($i=0; $i < 24; $i++){
-			if($i == 0 || $i == 6 || $i == 12 || $i == 18 ){
-				echo '<tr>';
-			}
-			echo '<td><div class="squaredOne"><input name="card'.$i.'" id="card'.$i.'" type="checkbox" value="'. $card[$i][0] .'" '. $card[$i][1] .'>
-					  <label for="card'.$i.'"></label></div></td>';
-
-			if($i == 5 || $i == 11 || $i == 17 || $i == 23 ){
-				echo '</tr>';
+			if($card[$i][1] == 'disabled') {
+				echo '<div class="cardBox"><div class="'.$suites[(int) substr($card[$i][0], 0, 1) - 1].' matched"><span class="card'.$ranks[(int) substr($card[$i][0], 2) - 1].'">'.$ranks[(int) substr($card[$i][0], 2) - 1].'
+					  </span></div></div>';
+			}else{
+				echo '<div class="cardBox"><div class="squaredOne"><input name="card'.$i.'" id="card'.$i.'" type="checkbox" value="'. $card[$i][0] .'" '. $card[$i][1] .'>
+						  <label for="card'.$i.'"></label></div></div>';
 			}
 		}
 	?>
 
-	  <tr>
-	    <td colspan="6">
 	      <input name="Try" type="submit" value="Match!" class="button try">
-	    </td>
-	  </tr>
-	</table>
   </form>
   <form action="<?php echo SITE_URL.'/index.php';?>" method="post" name="startNew">
   	<input type="submit" name="submit" value="New Game" class="button newGame">

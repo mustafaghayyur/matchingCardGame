@@ -138,7 +138,7 @@ class TheGame{
 
 		foreach($_SESSION['disabledCards'] as $card){
 			$key = array_search($card, $_SESSION['playingCards']);
-			$cardsArray[$key] = array($_SESSION['playingCards'][$i], 'disabled');
+			$cardsArray[$key][1] = 'disabled';
 		}
 
 		return $cardsArray;
