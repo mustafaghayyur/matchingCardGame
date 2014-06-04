@@ -15,11 +15,11 @@
 			}
 
 			if($keys[0] == $i){
-				echo '<td>'.$card1[1].' of '.$card1[0].'
-					  </td>';
+				echo '<td><div class="'.$card1[0].'"><span class="card'.$card1[1].'">'.$card1[1].'
+					  </span></div></td>';
 			}elseif($keys[1] == $i){
-	    		echo '<td>'.$card2[1].' of '.$card2[0].'
-					  </td>';
+	    		echo '<td><div class="'.$card2[0].'"><span class="card'.$card2[1].'">'.$card2[1].'
+					  </span></div></td>';
 			}else{
 				echo '<td><div class="squaredOne"><input name="card'.$i.'" id="card'.$i.'" type="checkbox" value="'.$card[$i][0].'" disbaled>
 					  <label for="card'.$i.'"></label></div></td>';
@@ -35,7 +35,7 @@
 	  <tr>
 	    <td colspan="6">
 
-	      <input value="TryAgain" name="TryAgain" type="submit" class="button tryAgain">
+	      <input value="Try Again" name="TryAgain" type="submit" class="button tryAgain">
 	      
 	    </td>
 	  </tr>

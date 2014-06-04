@@ -18,7 +18,7 @@ class Views{
 
 	public function cardVisualizer($card){
 		$suites = array('Spades', 'Hearts', 'Diamonds', 'Clubs');
-		$ranks = array('A', '2', '3', '4', '5', '6', '7', '8', '9', '10', 'Jack', 'Queen', 'King');
+		$ranks = array('A', '2', '3', '4', '5', '6', '7', '8', '9', '10', 'J', 'Q', 'K');
 		$matrix = explode(',', $card);
 
 		$suite = $suites[((int)$matrix[0]-1)];
