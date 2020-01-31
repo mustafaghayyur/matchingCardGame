@@ -4,7 +4,13 @@ import { connect } from 'react-redux';
 import _ from 'lodash';
 import $ from 'jquery';
 
-import { turnsCounter, matchCards } from '../actions';
+import { 
+	turnsCounter, 
+	matchCards, 
+	gameOver,
+	stopTimer,
+	totalTimeCalculator,
+	finalScoreCalculator } from '../actions';
 
 class PlayingCards extends Component {
   
@@ -25,21 +31,27 @@ class PlayingCards extends Component {
   
   render(){
   	let pcArr = [];
-	
 	var suits = ['Spades', 'Hearts', 'Diamonds', 'Clubs']
   	var ranks = ['A', '2', '3', '4', '5', '6', '7', '8', '9', '10', 'J', 'Q', 'K'];
 
-
-  	console.log('rendered', this.state);
+  	//console.log('rendered', this.state);
   	for (let i=0; i < 24; i++){
 		let suit = suits[parseInt(this.props.deck[this.props.playingCards[i]].s) - 1];
 		let rank = ranks[parseInt(this.props.deck[this.props.playingCards[i]].n) - 1];
-	
-		if(typeof this.props.disabledCards[this.props[i]] == 'undefined') {
+		let turnOver = true;
+
+		if(_.isEmpty(this.state['card1'].k) || _.isEmpty(this.state['card2'].k)){
+			turnOver = false;
+		}
+
+		if(typeof this.props.disabledCards[this.props.playingCards[i]] == 'undefined') {
 			//console.log('enabled', suit, rank);
-			let pi = parseInt(this.state['card1'].i);
-			if(i != pi && i != pi){
-				pcArr.push(this.renderEnabledCard(i, suit, rank));
+			if(i != parseInt(this.state['card1'].i) && i != parseInt(this.state['card2'].i)){
+				if(turnOver) {
+					pcArr.push(this.renderEnabledCard(i, suit, rank, true));
+				}else{
+					pcArr.push(this.renderEnabledCard(i, suit, rank));
+				}
 			}else{				
 				pcArr.push(this.renderPickedCard(i, suit, rank));
 			}
@@ -77,7 +89,7 @@ class PlayingCards extends Component {
   renderDisabledCard(i, suit, rank) {
 
 	return (
-			<div class="cardBox" key={i}>
+			<div className="cardBox" key={i}>
 				<div className={suit + " matched"}>
 					<span className={"card" + rank}> {rank} </span>
 				</div>
@@ -94,28 +106,40 @@ class PlayingCards extends Component {
 				return { card1: cObj };
 			} );
 	}else{
-		this.setState( function(state){
-				console.log('Turn ended', this);
-				return { card2: cObj };
-			} );
+		this.setState( { card2: cObj } );
 		
 		this.props.turnsCounter();
 		this.props.matchCards(this.state['card1'].k, cObj.k);
 
-		setTimeout(this.setState( { card1: '', card2: '' } ), 4000);
-	}	
+		// matchedCards() is an action, but it determines a successful match
+		// as well. We just use it to determine if we can skip the 3 second 
+		// lag for the user, as time is factor in determining user score.
+		let m = matchCards(this.state['card1'].k, cObj.k);
+		if(_.isEmpty(m.type)){
+			//m.type is empty so no match occured..
+			setTimeout(()=>{
+						this.setState( { card1: '', card2: '' } );
+					}, 3000);	
+		}else{
+			setTimeout(()=>{
+						this.setState( { card1: '', card2: '' } );
+					}, 500);		
+		}
 
+		this.isGameOver();
+	}	
   }
 
-  updateCardsStates(state){
-  	if(_.isEmpty(state['card2'].k) == false){
-
-		//$('#cardBox #squaredOne').remove(); 
-		//$('#cardBox #squaredOne label[for="#card'+this.state['card1'].i+'"]').remove(); 
-
-		this.setState( { card1: '', card2: '' } );
+  isGameOver(){
+	if(this.props.matched.num == 12){
+		this.props.stopTimer();
+		this.props.totalTimeCalculator(this.props.timeStart, this.props.timeEnd);
+		this.props.finalScoreCalculator(this.props.matched.num, this.props.turns.num, this.props.totalTime.value);
+	}else{
+		return false;
 	}
   }
+
 }
 
 function mapStateToProps(state){
@@ -124,12 +148,22 @@ function mapStateToProps(state){
 		playingCards: state.playingCards,
 		disabledCards: state.disabledCards,
 		matched: state.matched,
-		turns: state.turns
+		turns: state.turns,
+		timeStart: state.timeStart,
+		timeEnd: state.timeEnd,
+		totalTime: state.totalTime
 	}
 }
 
 function mapDispatchToProps(dispatch){
-	return bindActionCreators({turnsCounter:turnsCounter, matchCards:matchCards}, dispatch);
+	return bindActionCreators({
+				turnsCounter:turnsCounter, 
+				matchCards:matchCards, 
+				gameOver:gameOver, 
+				stopTimer: stopTimer, 
+				totalTimeCalculator:totalTimeCalculator,
+				finalScoreCalculator 
+				}, dispatch);
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(PlayingCards);

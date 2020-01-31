@@ -13,6 +13,7 @@ export function _randIntGenerator(min, max) {
  * Sets up the playing deck of standard 52 playing cards.
  */
 export function setupDeck(){
+	console.log('setupDeck');
 	var deck = {};
 	for (var s = 1; s <= 4; s++){
 		for(var n = 1; n <= 13; n++){
@@ -34,6 +35,7 @@ export function setupDeck(){
  * @param   i     - counter needed as an auto-incrementing key
  */
 export function cardPicker(deck, card = null, i){
+	console.log('cardPicker');
 	if(typeof card == 'string'){
 		return {
 			type: 'ADD_PICKED_CARD',
@@ -61,6 +63,7 @@ export function cardPicker(deck, card = null, i){
  * Run after every turn..
  */
 export function matchCards(card1, card2){
+	console.log('matchCards');
 	
 	var matrix1 = card1.split('.');
 	var matrix2 = card2.split('.');
@@ -86,6 +89,7 @@ export function matchCards(card1, card2){
  * Shuffle the playing cards for the game 
  */
 export function playingCardsRandomizer(playingCards){
+	console.log('playingCardsRandomizer');
 	return {
 			type: 'SHUFFLE_CARDS',
 			data: playingCards
@@ -96,6 +100,7 @@ export function playingCardsRandomizer(playingCards){
  * Update state's turns counter
  */
 export function turnsCounter (){
+	console.log('turnsCounter');
 	return {
 		type: 'TURNS_INCREMENT'
 	}
@@ -105,6 +110,7 @@ export function turnsCounter (){
  * Calculate total game time at the end of the game for score calculation.
  */
 export function startTimer(){
+	console.log('startTimer');
 	let d = new Date();
 	return {
 		type: 'START_TIMER',
@@ -116,6 +122,7 @@ export function startTimer(){
  * Calculate total game time at the end of the game for score calculation.
  */
 export function stopTimer(){
+	console.log('stopTimer');
 	let d = new Date();
 	return {
 		type: 'STOP_TIMER',
@@ -127,6 +134,7 @@ export function stopTimer(){
  * Calculate total game time at the end of the game for score calculation.
  */
 export function totalTimeCalculator(start, end){
+	console.log('totalTimeCalculator');
 	return {
 		type: 'TOTAL_TIME_UPDATE',
 		data: ( ((start - end) * 1000) / 60)
@@ -137,20 +145,18 @@ export function totalTimeCalculator(start, end){
  * Calculates the score at the end of the game.
  */
 export function finalScoreCalculator(matches, turns, totalTime){
+	console.log('finalScoreCalculator');
 	return {
 		type: 'FINAL_SCORE_UPDATE',
 		data: (matches * (100 / turns) * (1000 / totalTime))
 	}
 }
 
-/**
- * Is game over?
- */
-export function gameOver(matches){
-	if(matches == 12){
-		return true;
-	}else{
-		return false;
+export function newGame(){
+	console.log('newGame');
+	return {
+		type: 'NEW_GAME'
 	}
 }
+
 

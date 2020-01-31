@@ -5,10 +5,13 @@ export default function(state = {}, actionOutput) {
 	switch (actionOutput.type) {
 		case 'START_TIMER':
 			//console.log('start time reducer', actionOutput);
-			var obj = {};
-			obj['value'] = actionOutput.data;
-			return _.assign(state, obj);
+			state['value'] = actionOutput.data;
+			return _.extend({}, state);
 
+		case 'NEW_GAME':
+			state = {};
+			return state;
+			
 		default:
 			return state;
 	}

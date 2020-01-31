@@ -4,14 +4,19 @@ export default function(state = {}, actionOutput) {
 
 	switch (actionOutput.type) {
 		case 'ADD_PICKED_CARD':
-			var obj = {};
-			obj[actionOutput.key] = actionOutput.data;
-			return _.assign(state, obj);
+			let obj1 = {};
+			obj1[actionOutput.key] = actionOutput.data;
+			//console.log('playingcards recuer', state);
+			return _.extend(state, obj1);
 
 		case 'SHUFFLE_CARDS':
 			var obj = _.shuffle(actionOutput.data);
-			return _.assign(state, obj);
+			return _.extend(state, obj);
 
+		case 'NEW_GAME':
+			state = {};
+			return state;
+			
 		default:
 			return state;
 	}

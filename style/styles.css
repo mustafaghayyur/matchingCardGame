@@ -188,75 +188,87 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ff3019', end
 }
 
 .squaredOne input[type=checkbox][disabled] + label:after{
-  background: -webkit-linear-gradient(top, #ffccff 0%, #009400 100%);
-  background: -moz-linear-gradient(top, #ffccff 0%, #ffccff 100%);
-  background: -o-linear-gradient(top, #ffccff 0%, #ffccff 100%);
-  background: -ms-linear-gradient(top, #ffccff 0%, #ffccff 100%);
-  background: linear-gradient(top, #ffccff 0%, #ffccff 100%);
+		  background: -webkit-linear-gradient(top, #333 0%, #fff 100%);
+		  background: -moz-linear-gradient(top, #333 0%, #fff 100%);
+		  background: -o-linear-gradient(top, #333 0%, #fff 100%);
+		  background: -ms-linear-gradient(top, #333 0%, #fff 100%);
+		  background: linear-gradient(top, #333 0%, #fff 100%);
+			
+  opacity: 1;
 
-  opacity: 0.6;
 }
 
+
 #gameBoard .Spades, #gameBoard .Hearts, #gameBoard .Diamonds, #gameBoard .Clubs {
-  width: 58px;
-  height: 68px;
+  width: 52px;
+  height: 62px;
   margin: 10px auto;
   top: 0px;
-  -webkit-box-shadow: inset 0px 1px 1px white, 0px 1px 3px rgba(0,0,0,0.5);
+  /*-webkit-box-shadow: inset 0px 1px 1px white, 0px 1px 3px rgba(0,0,0,0.5);
   -moz-box-shadow: inset 0px 1px 1px white, 0px 1px 3px rgba(0,0,0,0.5);
-  box-shadow: inset 0px 1px 1px white, 0px 1px 3px rgba(0,0,0,0.5);
+  box-shadow: inset 0px 1px 1px white, 0px 1px 3px rgba(0,0,0,0.5);*/
   position: relative;
+  border: 3px #999999 solid;
+}
+
+#gameBoard .Spades.matched, 
+#gameBoard .Hearts.matched, 
+#gameBoard .Diamonds.matched, 
+#gameBoard .Clubs.matched {
+  opacity: 0.5;
 }
 
 .cardA, .card2, .card1, .card3, .card4, .card5, .card6, .card7, .card8, .card9, .card10, .cardJ, .cardQ, .cardK {
   color: #000;
-  text-align: center;
-  font-size: 1.2em;
+  font-size: 0.8em;
   font-family: 'Fugaz One', cursive, Tahoma, Verdana, sans-serif;  
   line-height: normal;
   position: relative;
-  text-align: center !important;
-  top: 15px;
-  left: 19px;
+  top: 12px;
+  /*left: 19px; -- removed this and aligned center*/
+	  text-align: center !important;
+	  width: 52px;
+	  display: block;
+	  padding: 0;
+	  margin: 0;
   opacity: 1;
 }
 
-.card10{
-  left: 10px;
-}
+	/*
+	.card10{
+	  left: 10px;
+	}-- no need for this if text-align is center? */
 
 #gameBoard .Spades{
-  background: #1B006E;
-  background-image: url('cardSuites.png');
+  background: #4000ff;
+  background-image: url('cardSuites_new.png');
   background-repeat: no-repeat;
-  background-position: 1px -81px;
+  background-position: 1px -75px;
   background-position: 
 }
 
 #gameBoard .Hearts{
   background: #FF0000;  
-  background-image: url('cardSuites.png');
+  background-image: url('cardSuites_new.png');
   background-repeat: no-repeat;
   background-position: 1px 7px;
 }
 
 #gameBoard .Diamonds{
   background: #FF0000;
-  background-image: url('cardSuites.png');
+  background-image: url('cardSuites_new.png');
   background-repeat: no-repeat;
-  background-position: -88px -81px;
+  background-position: -81px -75px;
 }
 
 #gameBoard .Clubs{
-  background: #1B006E;
-  background-image: url('cardSuites.png');
+  background: #4000ff;
+  background-image: url('cardSuites_new.png');
   background-repeat: no-repeat;
-  background-position: -87px 7px;
+  background-position: -81px 4px;
 }
 
-.matched {
-  opacity: 0.5;
-}
+
 
 /*==================
   Buttons
@@ -358,9 +370,9 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ff3019', end
 #finalScoreBoard{
   position: absolute;
   top: 150px;
-  left: 75px;
+  left: 115px;
   width: 620px;
-  height: 170px;
+  height: 180px;
   -webkit-border-radius: 15px 15px 15px 15px;
   border-radius: 15px 15px 15px 15px;
   background: #222;
@@ -371,4 +383,14 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ff3019', end
   background: linear-gradient(top, #222 0%, #45484d 100%);
   filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#222', endColorstr='#45484d',GradientType=0 );
   padding-top: 30px;
+  z-index: 9000;
+}
+
+#gameBoard.end {
+	text-align: center;
+}
+#gameBoard.end .buffer-scoreboard{
+	display: block;
+	width: 100%;
+	height: 350px;
 }
