@@ -12,18 +12,18 @@ class StartNew extends Component {
   
   constructor(props){
   	super(props);
-  	this.onClickEvent = this.onClickEvent.bind(this);
+  	this.onNewGameClickEvent = this.onNewGameClickEvent.bind(this);
   }
 
   render() {
     return (
 		<div>
-			<input type="submit" name="newGame" value="New Game" className="button newGame" onClick={this.onClickEvent} />
+			<input type="submit" name="newGame" value="New Game" className="button newGame" onClick={this.onNewGameClickEvent} />
 		</div>
     );
   }
 
-  onClickEvent(e){
+  onNewGameClickEvent(e){
   	if(e.target.value == 'New Game') {
   		this.props.newGame();
   		this.props.setupDeck();

@@ -6,8 +6,7 @@ import _ from 'lodash';
 import { setupDeck, 
 		createPlayingCardsArray,
 		playingCardsRandomizer, 
-		startTimer, 
-		_randIntGenerator } from '../actions';
+		startTimer } from '../actions';
 import PlayingCards from './PlayingCards';
 import StartNew from './StartNew';
 

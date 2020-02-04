@@ -1,15 +1,5 @@
 
 /**
- * Helper function that generates a random number inclusive of 
- * min & max values provided.
- */
-export function _randIntGenerator(min, max) {
-	min = Math.ceil(min);
-	max = Math.floor(max) + 1;
-	return Math.floor(Math.random() * (max - min)) + min; 
-}
-
-/**
  * Sets up the playing deck of standard 52 playing cards.
  */
 export function setupDeck(){
@@ -83,7 +73,7 @@ export function createPlayingCardsArray(){
 									});
   		if(typeof existingKey !== 'undefined'){
   			console.log('Error - SERIOUSLY should not have happenned', c, s, cardInstanceCounter, playingCards);
-//			location.reload();
+			location.reload();
 			throw new Error('Card Generation failed. Retrying..');
   		}
 
@@ -110,12 +100,22 @@ function _cardPicker(playingCards){
 									function(card){
 										return card == s+'.'+n;
 									});
-	//console.log('_cardPicker value exists', card, Object.values(playingCards).indexOf(card), playingCards);
+
 	if (typeof existingKey !== 'undefined') {
 		return _cardPicker(playingCards);
 	}else{
 		return card;		
 	}
+}
+
+/**
+ * Helper function that generates a random number inclusive of 
+ * min & max values provided.
+ */
+export function _randIntGenerator(min, max) {
+	min = Math.ceil(min);
+	max = Math.floor(max) + 1;
+	return Math.floor(Math.random() * (max - min)) + min; 
 }
 
 /**
@@ -126,7 +126,7 @@ function _cardPicker(playingCards){
 function _cardInstanceValidator(y, counter, playingCards){
 	let c = playingCards[y].split(".");
 	let num = (typeof counter[c[1]] == 'undefined') ? 1 : counter[c[1]] + 1;
-	console.log('--------Counter', y, playingCards[y], num, counter);
+
 	if(num > 2){
 		//try to fix it another time...
 		playingCards[y] = _cardPicker(playingCards);
@@ -157,26 +157,25 @@ function _pickSuitForPairSelection(playingCards, firstCardKey, iteration = 0){
 
 	if(typeof existingKey !== 'undefined'){
 		if(iteration >= 4){
-			//all possibilities are failing, 
-			//time to make very literal choices...
+			// All possibilities are failing, 
+			// Time to make very literal choices...
 			for(var i = 1; i < 5; i++){
 				let newKey = _.findKey(playingCards, 
 									function(card){
 										return card == i+'.'+c[1];
 									});
 				if(typeof newKey === 'undefined'){
-					//console.log('NON RANDOM S picked');
 					return i;
 				}
 			}
-			//we have failed. 
-			//Reload the app, and cross your fingers.
+
+			// We have failed. 
+			// Reload the app, and cross your fingers.
 			console.log('Error - should not have happenned', c, playingCards);
-//			location.reload();
+			location.reload();
 			throw new Error('Card Generation failed. Retrying..');
 		}
 
-		//console.log('_pickSuitForPairSelection failed, trying again', playingCards, iteration);
 		return _pickSuitForPairSelection(playingCards, firstCardKey, iteration);
 	}
 
@@ -187,7 +186,6 @@ function _pickSuitForPairSelection(playingCards, firstCardKey, iteration = 0){
  * Run after every turn..
  */
 export function matchCards(card1, card2){
-
 	console.log('matchCards()');
 	
 	var matrix1 = card1.split('.');
@@ -214,7 +212,6 @@ export function matchCards(card1, card2){
  * Shuffle the playing cards for the game 
  */
 export function playingCardsRandomizer(playingCards){
-
 	console.log('playingCardsRandomizer()');
 
 	return {

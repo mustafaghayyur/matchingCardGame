@@ -15,17 +15,24 @@ class PlayingCards extends Component {
   
   constructor(props){
   	super(props);
+  	this._isMounted = false;
   	this.state = {};
   	this.onClickEvent = this.onClickEvent.bind(this);
   }
 
   componentWillMount(){
+  	this._isMounted = true;
+
 	this.setState(
-			{ 
-				card1: {i: '', k: ''}, 
-				card2: {i: '', k: ''} 
-			}
-		);
+		{ 
+			card1: {i: '', k: ''}, 
+			card2: {i: '', k: ''} 
+		}
+	);
+  }
+
+  componentWillUnmount(){
+  	this._isMounted = false;
   }
   
   render(){
@@ -106,7 +113,7 @@ class PlayingCards extends Component {
 			} );
 	}else{
 		this.setState( { card2: cObj } );
-		
+
 		this.props.turnsCounter();
 		this.props.matchCards(this.state['card1'].k, cObj.k);
 
@@ -117,11 +124,15 @@ class PlayingCards extends Component {
 		if(_.isEmpty(m.type)){
 			//m.type is empty so no match occured..
 			setTimeout(()=>{
-						this.setState( { card1: '', card2: '' } );
-					}, 3000);	
+						if(this._isMounted){
+							this.setState( { card1: '', card2: '' } );
+						}
+					}, 3000);
 		}else{
 			setTimeout(()=>{
-						this.setState( { card1: '', card2: '' } );
+						if(this._isMounted){
+							this.setState( { card1: '', card2: '' } );
+						}						
 					}, 500);		
 		}
 
