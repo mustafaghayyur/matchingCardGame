@@ -143,7 +143,7 @@ class PlayingCards extends Component {
   isGameOver(){
 	if(this.props.matched.num == 12){
 		this.props.stopTimer();
-		this.props.totalTimeCalculator(this.props.timeStart, this.props.timeEnd);
+		this.props.totalTimeCalculator(this.props.timeStart.value, this.props.timeEnd.value);
 		this.props.finalScoreCalculator(this.props.matched.num, this.props.turns.num, this.props.totalTime.value);
 	}else{
 		return false;

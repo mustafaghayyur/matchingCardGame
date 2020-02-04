@@ -261,11 +261,15 @@ export function stopTimer(){
  * Calculate total game time at the end of the game for score calculation.
  */
 export function totalTimeCalculator(start, end){
-	console.log('totalTimeCalculator()');
+	console.log('totalTimeCalculator()', start, end);
 
+	let t = (end - start) / 1000 / 60;
+
+	// rounded gives us a 2 decimal placed value
+	let rounded = Math.round(t * 100) / 100;
 	return {
 		type: 'TOTAL_TIME_UPDATE',
-		data: ( ((start - end) * 1000) / 60)
+		data: rounded
 	}
 }
 
@@ -273,11 +277,14 @@ export function totalTimeCalculator(start, end){
  * Calculates the score at the end of the game.
  */
 export function finalScoreCalculator(matches, turns, totalTime){
-	console.log('finalScoreCalculator()');
+	console.log('finalScoreCalculator()', matches, turns, totalTime);
+
+	let score = matches * 100 / (turns * (totalTime * 2));
+	let rounded = Math.round(score) * 10;
 
 	return {
 		type: 'FINAL_SCORE_UPDATE',
-		data: (matches * (100 / turns) * (1000 / totalTime))
+		data: rounded
 	}
 }
 
