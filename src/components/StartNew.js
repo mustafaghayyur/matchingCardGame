@@ -27,8 +27,8 @@ class StartNew extends Component {
   	if(e.target.value == 'New Game') {
   		this.props.newGame();
   		this.props.setupDeck();
-		//this.createPlayingCardsArray();
-		//this.props.playingCardsRandomizer(this.props.playingCards);
+		this.props.createPlayingCardsArray();
+		this.props.playingCardsRandomizer(this.props.playingCards);
 		this.props.startTimer();
   	}
   }

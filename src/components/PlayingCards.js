@@ -4,13 +4,12 @@ import { connect } from 'react-redux';
 import _ from 'lodash';
 import $ from 'jquery';
 
-import { 
-	turnsCounter, 
-	matchCards, 
-	gameOver,
-	stopTimer,
-	totalTimeCalculator,
-	finalScoreCalculator } from '../actions';
+import { turnsCounter, 
+		matchCards, 
+		gameOver,
+		stopTimer,
+		totalTimeCalculator,
+		finalScoreCalculator } from '../actions';
 
 class PlayingCards extends Component {
   
