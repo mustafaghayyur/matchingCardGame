@@ -16,7 +16,7 @@ class StartNew extends Component {
 
   render() {
     return (
-		<div>
+		<div className="newGameSection">
 			<input type="submit" name="newGame" value="New Game" className="button newGame" onClick={this.onNewGameClickEvent} />
 		</div>
     );

@@ -7,7 +7,6 @@ import { setupDeck,
 		createPlayingCardsArray,
 		startTimer } from '../actions';
 import PlayingCards from './PlayingCards';
-import StartNew from './StartNew';
 
 class GameBoard extends Component {
 
@@ -26,8 +25,6 @@ class GameBoard extends Component {
     	
     	return(
 			<div id="gameBoard">
-				<div className="buffer-scoreboard"></div>
-				<StartNew />
 			</div>
 		);
 
@@ -38,8 +35,6 @@ class GameBoard extends Component {
 				<form name="gameBoard" action="/index.php" method="POST">	
 					<PlayingCards />
 				</form>
-
-				<StartNew />
 			</div>
 	    );
     }

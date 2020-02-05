@@ -127,7 +127,7 @@ class PlayingCards extends Component {
 						if(this._isMounted){
 							this.setState( { card1: '', card2: '' } );
 						}
-					}, 2500);
+					}, 1000);
 		}else{
 			setTimeout(()=>{
 						if(this._isMounted){
