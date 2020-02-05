@@ -386,6 +386,13 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ff3019', end
   z-index: 9000;
 }
 
+#finalScoreBoard .totals, #finalScoreBoard .highScores {
+	width: 47%;
+	position: relative;
+	display: inline-block;
+	float: left;
+}
+
 #gameBoard.end {
 	text-align: center;
 }
