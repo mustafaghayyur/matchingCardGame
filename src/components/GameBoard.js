@@ -5,7 +5,6 @@ import _ from 'lodash';
 
 import { setupDeck, 
 		createPlayingCardsArray,
-		playingCardsRandomizer, 
 		startTimer } from '../actions';
 import PlayingCards from './PlayingCards';
 import StartNew from './StartNew';
@@ -15,7 +14,6 @@ class GameBoard extends Component {
   componentWillMount(){
   	this.props.setupDeck();
 	this.props.createPlayingCardsArray();
-	this.props.playingCardsRandomizer(this.props.playingCards);
 	this.props.startTimer();
 	console.log('GameBoard COmponentDidMount', this.props, this.propertyIsEnumerable('props'), this.props.propertyIsEnumerable('playingCards'));
   }
@@ -61,7 +59,6 @@ function mapDispathToProps(dispatch) {
 	return bindActionCreators({
 				setupDeck: setupDeck, 
 				createPlayingCardsArray: createPlayingCardsArray,
-				playingCardsRandomizer: playingCardsRandomizer, 
 				startTimer: startTimer
 			}, dispatch);
 }

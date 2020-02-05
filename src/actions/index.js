@@ -1,3 +1,4 @@
+import _ from 'lodash';
 
 /**
  * Sets up the playing deck of standard 52 playing cards.
@@ -71,6 +72,7 @@ export function createPlayingCardsArray(){
 									function(card){
 										return card == s+'.'+c[1];
 									});
+  		
   		if(typeof existingKey !== 'undefined'){
   			console.log('Error - SERIOUSLY should not have happenned', c, s, cardInstanceCounter, playingCards);
 			location.reload();
@@ -83,7 +85,7 @@ export function createPlayingCardsArray(){
 
 	return {
 		type: 'ADD_PICKED_CARDS',
-		data: playingCards
+		data: _.shuffle(playingCards)
 	}
 
 }
@@ -164,6 +166,7 @@ function _pickSuitForPairSelection(playingCards, firstCardKey, iteration = 0){
 									function(card){
 										return card == i+'.'+c[1];
 									});
+
 				if(typeof newKey === 'undefined'){
 					return i;
 				}
@@ -206,18 +209,6 @@ export function matchCards(card1, card2){
 			type: ''
 		};		
 	}
-}
-
-/**
- * Shuffle the playing cards for the game 
- */
-export function playingCardsRandomizer(playingCards){
-	console.log('playingCardsRandomizer()');
-
-	return {
-			type: 'SHUFFLE_CARDS',
-			data: playingCards
-		}
 }
 
 /**

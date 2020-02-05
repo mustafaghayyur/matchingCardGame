@@ -4,7 +4,6 @@ import { connect } from 'react-redux';
 
 import {setupDeck,
 		createPlayingCardsArray,
-		playingCardsRandomizer,
 		startTimer,
 		newGame } from '../actions/index';
 
@@ -28,7 +27,6 @@ class StartNew extends Component {
   		this.props.newGame();
   		this.props.setupDeck();
 		this.props.createPlayingCardsArray();
-		this.props.playingCardsRandomizer(this.props.playingCards);
 		this.props.startTimer();
   	}
   }
@@ -43,7 +41,6 @@ function mapDispatchToProps(dispatch){
 			newGame:newGame,
 			setupDeck: setupDeck,
 			createPlayingCardsArray: createPlayingCardsArray,
-			playingCardsRandomizer: playingCardsRandomizer,
 			startTimer: startTimer
 		}, dispatch);
 }
