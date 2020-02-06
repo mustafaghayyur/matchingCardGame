@@ -10,7 +10,7 @@ Checkout this repo, install dependencies, then start the gulp process with the f
 
 ```
 > git clone https://github.com/mustafaghayyur/matchingCardGame.git
-> cd ReduxSimpleStarter
+> cd matchingCardGame
 > npm install
 > npm start
 ```
