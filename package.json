@@ -8,7 +8,8 @@
     "start": "node ./node_modules/webpack-dev-server/bin/webpack-dev-server.js",
     "test": "mocha --compilers js:babel-core/register --require ./test/test_helper.js --recursive ./test",
     "test:watch": "npm run test -- --watch",
-    "build": "webpack -p --define process.env.NODE_ENV='\"production\"' --progress --colors"
+    "build": "webpack -p --define process.env.NODE_ENV='\"production\"' --progress --colors",
+    "production": "webpack -p --progress"
   },
   "author": "",
   "license": "ISC",
@@ -22,7 +23,6 @@
   },
   "dependencies": {
     "babel-preset-stage-1": "^6.1.18",
-    "jquery": "^3.4.1",
     "lodash": "^3.10.1",
     "react": "16.3.2",
     "react-dom": "16.3.2",
