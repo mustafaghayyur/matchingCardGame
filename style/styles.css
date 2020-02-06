@@ -340,11 +340,6 @@ h1.name{
 #gameBoard.end {
 	text-align: center;
 }
-#gameBoard.end .buffer-scoreboard{
-	display: block;
-	width: 100%;
-	height: 350px;
-}
 
 #sysMsgs{
 	position: absolute;
@@ -402,6 +397,42 @@ h1.name{
  * Mobile Responsive styling
  */
 @media only screen and (max-width: 768px) {
+	html{
+		background: none !important;
+		-webkit-background-size: 
+		-moz-background-size: cover;
+		-o-background-size: cover;
+		background-size: auto;
+		filter: none; /* IE6-9 */
+		height: initial;
+		margin: initial;
+		background-repeat: repeat;
+		background-attachment: scroll;
+	    background-color: #066dab;
+	}
+	body { 
+	    font: 52.5%/0.8 'Montserrat', Tahoma, Verdana, sans-serif; 
+	    color: #000000;     
+	    text-align:center; 
+
+	    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#c5deea', endColorstr='#066dab',GradientType=0 ); /* IE6-9 */
+	    background-color: #066dab; /* Old browsers */
+	    background: -moz-linear-gradient(top,  #c5deea 0%, #8abbd7 31%, #066dab 100%); /* FF3.6+ */
+	    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#c5deea), color-stop(31%,#8abbd7), color-stop(100%,#066dab)); /* Chrome,Safari4+ */
+	    background: -webkit-linear-gradient(top,  #c5deea 0%,#8abbd7 31%,#066dab 100%); /* Chrome10+,Safari5.1+ */
+	    background: -o-linear-gradient(top,  #c5deea 0%,#8abbd7 31%,#066dab 100%); /* Opera 11.10+ */
+	    background: -ms-linear-gradient(top,  #c5deea 0%,#8abbd7 31%,#066dab 100%); /* IE10+ */
+	    background: linear-gradient(to bottom,  #c5deea 0%,#8abbd7 31%,#066dab 100%); /* W3C */
+	    -webkit-background-size: cover;
+	    -moz-background-size: cover;
+	    -o-background-size: cover;
+	    background-size: cover;
+	    background-repeat: no-repeat;
+	    background-attachment: fixed;
+	    height: 100%;
+	    margin: -10px 0 0;
+	}
+
 	h1.name{ 
 	    position: relative;
 	    top: initial;
@@ -419,20 +450,22 @@ h1.name{
 	    margin-left:auto;  
 	    margin-right:auto;  
 	    background-color: #FFFFFF; 
-	    margin-top: 10px;
+	    margin-top: 25px;
 	    margin-bottom: 10px;
 	    -webkit-border-radius: 7px 7px 7px 7px;
 	    border-radius: 7px 7px 7px 7px;
-	    height: 100%;
-	    min-height: 700px;
-	    overflow: scroll;
+	    height: auto;
+	    min-height: 760px;
+	    overflow: visible;
+	    display: block;
 	}
 
 	#content{
 		width:96%;
-		padding: 3% 2%; 
+		padding: 4% 2%; 
 		position: relative;
 		height: 100%;
+		display: block;
 	}
 
 	#footer{
@@ -462,7 +495,7 @@ h1.name{
 		left: initial;
 		float: left;
 		display: block;
-		width: 90%;
+		width: 100%;
 		height: 70px;
 		margin: 0px auto;
 		text-align: center;
@@ -505,8 +538,8 @@ h1.name{
 		left: initial;
 		display: block;
 		float: left;
-		margin: 15px 15px;
-		width: 90%;
+		margin: 5px auto;
+		width: 100%;
 		height: 250px;
 		padding-top: 30px;
 	}
@@ -522,13 +555,20 @@ h1.name{
 		position: relative;
 		top: initial;
 		left: initial;
-		width: 90%;
-		height: 250px;
+		width: 96%;
+		height: 300px;
 		display: block;
 		float: left;
-		padding: 5px 10px;
+		padding: 2% 2%;
 		padding-top: 30px;
-		margin: 15px 15px;
+		margin: 5px auto;
+	}
+
+	/* SQUARED ONE */
+	#gameBoard .cardBox{
+		width: 75px;
+		float: left;
+		height: 75px;
 	}
 
 }

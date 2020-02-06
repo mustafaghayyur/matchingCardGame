@@ -2,7 +2,7 @@
 
 Nifty Matching Cards game built in ReactJS.
 
-You can play the game online: http://www.web-dotz.com/app/matching-game
+You can play the game online: http://www.web-dotz.com/apps/matching-game
 
 
 #### Setup Locally
