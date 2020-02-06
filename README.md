@@ -1,25 +1,16 @@
-# ReduxSimpleStarter
+# Matching Card Game
 
-Interested in learning [Redux](https://www.udemy.com/react-redux/)?
+Nifty Matching Cards game built in ReactJS.
 
-### Getting Started
+You can play the game online: http://www.web-dotz.com/app/matching-game
 
-There are two methods for getting started with this repo.
 
-#### Familiar with Git?
+#### Setup Locally
 Checkout this repo, install dependencies, then start the gulp process with the following:
 
 ```
 > git clone https://github.com/StephenGrider/ReduxSimpleStarter.git
 > cd ReduxSimpleStarter
-> npm install
-> npm start
-```
-
-#### Not Familiar with Git?
-Click [here](https://github.com/StephenGrider/ReactStarter/releases) then download the .zip file.  Extract the contents of the zip file, then open your terminal, change to the project directory, and:
-
-```
 > npm install
 > npm start
 ```
