@@ -9,6 +9,7 @@ import TurnsReducers from './turns';
 import TotalTimeReducers from './totalTime';
 import TimeStartReducers from './timeStart';
 import TimeEndReducers from './timeEnd';
+import SysMsgReducers from './sysMsgs';
 
 const rootReducer = combineReducers({
   deck: CardsDeckReducers, //the full deck of 52 cards to deal from.
@@ -19,8 +20,8 @@ const rootReducer = combineReducers({
   totalTime: TotalTimeReducers,
   timeStart: TimeStartReducers,
   timeEnd: TimeEndReducers,
-  score: ScoreReducers
-
+  score: ScoreReducers,
+  sysMsgs: SysMsgReducers
 });
 
 export default rootReducer;

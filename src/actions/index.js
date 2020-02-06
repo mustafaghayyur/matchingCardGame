@@ -287,4 +287,22 @@ export function newGame(){
 	}
 }
 
+export function addSysMsgHeading(text){
+	return {
+		type: 'ADD_MSG_HEADING',
+		heading: text
+	}
+}
 
+export function addSysMsg(text){
+	return {
+		type: 'ADD_MSG',
+		msg: text
+	}
+}
+
+export function clearSysMsg(){
+	return {
+		type: 'CLEAR_MSGS'
+	}
+}
