@@ -9,7 +9,7 @@ You can play the game online: http://www.web-dotz.com/app/matching-game
 Checkout this repo, install dependencies, then start the gulp process with the following:
 
 ```
-> git clone https://github.com/StephenGrider/ReduxSimpleStarter.git
+> git clone https://github.com/mustafaghayyur/matchingCardGame.git
 > cd ReduxSimpleStarter
 > npm install
 > npm start
